@@ -7,6 +7,7 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.symlinks(true) //热更新
   },
+  //
   configureWebpack: (config) => {
     Object.assign(config, {
       // 开发生产共同配置
