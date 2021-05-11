@@ -1,6 +1,6 @@
 <template>
     <router-view />
-    <van-tabbar id="tabbar" v-model="active" placeholder safe-area-inset-bottom class="mt20">
+    <van-tabbar id="tabbar" v-model="active" placeholder safe-area-inset-bottom class="">
         <van-tabbar-item icon="tv-o" @click="toTypePage(2)">娱乐</van-tabbar-item>
         <van-tabbar-item icon="chat-o" @click="toTypePage(1)" dot>消息</van-tabbar-item>
         <van-tabbar-item icon="apps-o" @click="toTypePage(0)">推荐</van-tabbar-item>
@@ -30,7 +30,7 @@ export default defineComponent({
 
   },
   setup(){
-      const tabbar = reactive({
+      const tabbara = reactive({
           active: 2
       });
       const router = useRouter();
@@ -77,7 +77,7 @@ export default defineComponent({
           toDiaryCategorys,
           toRecommendCategorys,
           toAmusement,
-          ...toRefs(tabbar)
+          ...toRefs(tabbara)
       }
   },
   methods:{
@@ -105,14 +105,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 *{padding:0px;margin:0px;}
 html,body{
     font-family:"Microsoft Yahei";
     height:100%;
-}
-#app {
-    width: 100%;
-    height: 100%;
 }
 </style>

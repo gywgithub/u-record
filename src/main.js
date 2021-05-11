@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from './route'
 import './styles/index.css'
+import './styles/indexImp.css'
 import './common/reset.css'
 import {
     Col,
@@ -9,6 +10,7 @@ import {
     Uploader,
     Popover,
     Picker,
+    Skeleton,
     Button,
     ShareSheet,
     Form,
@@ -48,6 +50,7 @@ instace.use(Button)
        .use(Uploader)
        .use(Popover)
        .use(Picker)
+       .use(Skeleton)
        .use(Toast)
        .use(Field)
        .use(Tabbar)

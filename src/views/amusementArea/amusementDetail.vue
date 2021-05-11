@@ -10,7 +10,7 @@
                 <p class="titleEplice">{{titleName}}</p>
             </template>
             <template #right>
-                <van-icon name="edit" class="editFeedfack"/><span class="editTxt mr15">写回答</span>
+                <van-icon name="edit" class="editFeedfack"/><span class="editTxt mr15" @click="wirteQues">写回答</span>
                 <van-icon name="ellipsis" class="moreHanndle" @click.stop="showShare = true"/>
             </template>
         </van-nav-bar>
@@ -137,12 +137,12 @@
             <div class="h70"></div>
             <van-row class="commBot borTop1">
                 <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(1)">
-                    <van-icon name="like" size="20"/>
-                    <p class="mt5 mb5">喜欢&nbsp;6.1万</p>
+                    <van-icon name="like" size="20" :class="isLikeed ? 'activeHannel' : ''"/>
+                    <p class="mt5 mb5" :class="isLikeed ? 'activeHannel' : ''">喜欢&nbsp;6.1万</p>
                 </van-col>
                 <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(2)">
-                    <van-icon name="star" size="20"/>
-                    <p class="mt5 mb8">收藏&nbsp;2.4万</p>
+                    <van-icon name="star" size="20" :class="isCalled ? 'activeHannel' : ''"/>
+                    <p class="mt5 mb8" :class="isCalled ? 'activeHannel' : ''">收藏&nbsp;2.4万</p>
                 </van-col>
                 <van-col span="6" class="hanndleComm tac br1" @touchstart="gtouchstart()" @click="toTypeHanndle(3)" >
                     <van-icon name="chat" size="20"/>
@@ -161,8 +161,110 @@
         <van-popup v-model:show="show"
                    round
                    closeable
+                   close-icon="close"
                    position="bottom"
-                   :style="{ height: '80%' }" />
+                   class="pb20 pt20"
+                   :style="{ height: '90%' }">
+            <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
+                <van-list
+                        :loading="state.loading"
+                        :finished="state.finished"
+                        finished-text="没有更多了"
+                        style=""
+                        @load="onLoad">
+                    <van-cell-group>
+                        <van-cell v-for="item in state.list" :key="item" :title="item.title">
+                            <van-skeleton
+                                    title
+                                    avatar
+                                    :row="3"
+                                    :loading="loading">
+                                <div class="demo-preview dppb">
+                                    <img src="https://pic4.zhimg.com/v2-51f0f2a220b7393f463c4d44c5272056_xs.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <h4>Never GiveUp <van-tag type="primary">用户</van-tag></h4>
+                                        <p style="border-bottom:1px solid #eee;padding-bottom: 15px;">年纪越大，越渐渐地明白，中国古人的智慧是无穷的。我常常感觉自己数年的学简直都白上了。可惜，考试制度决定了我们现在大部分孩子们只能学到无用的糟粕罢了。<br/><br/>愚蠢对某些人来说，是他们最喜闻乐见的东西。</p>
+                                        <van-skeleton
+                                                title
+                                                avatar
+                                                :row="3"
+                                                :loading="loading">
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic4.zhimg.com/v2-3435cadd547958e4a083a75a39e32602_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp">
+                                                    <h4>西三九</h4>
+                                                    <p>是呀，都是普通人，能力也不行，为什么就非想着自己能一飞冲天呢～</p>
+                                                </div>
+                                            </div>
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-76ad52b8c0021e2f832a264672397048_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp">
+                                                    <h4>charliedu</h4>
+                                                    <p>现在的小家庭模式不确定性太高了，抗风险能力太弱，出于本能反应，人就会表现出急功近利。可怜呀，这一代人就他一个。</p>
+                                                </div>
+                                            </div>
+                                        </van-skeleton>
+                                    </div>
+                                </div>
+                                <div class="demo-preview dppb">
+                                    <img src="https://pic2.zhimg.com/v2-d8581cdec1d1088827cc63225afc6cad_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <h4>聊天疲劳 <van-tag type="primary">vip2</van-tag></h4>
+                                        <p style="border-bottom:1px solid #eee;padding-bottom: 15px;">现在很多人要求的都是一代实现阶级跨越，否则就满心怨愤，因为我们是新国家新社会……在历史看来，没有新旧之分，都是过程的瞬间。</p>
+                                        <van-skeleton
+                                                title
+                                                avatar
+                                                :row="3"
+                                                :loading="loading">
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-3ce282564a09b373c61706db72bc21eb_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp">
+                                                    <h4>哈士奇</h4>
+                                                    <p>你是认为取决于个人和时代吗？</p>
+                                                </div>
+                                            </div>
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-ca6a6c9b98e4c7682a7c3a6370631e7f_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp">
+                                                    <h4>艾达</h4>
+                                                    <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
+                                                </div>
+                                            </div>
+                                        </van-skeleton>
+                                    </div>
+                                </div>
+                                <div class="demo-preview">
+                                    <img src="https://pic1.zhimg.com/v2-3d3d524044b90cedb50db24659009331_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <h4>lianjiecai <van-tag type="primary">vip1</van-tag></h4>
+                                        <p>我越看越觉得悲哀。中国家长花巨资培养孩子，中国学生勤奋辛苦十几年才有一点可能上中国一流大学。但是其他穷弱国家的穷丑黑矮学渣屌丝却能随随便便轻轻松松地每年领着巨额奖学金上中国一流大学。这巨额奖学金却是中国人辛苦工作交的税。中国警察生三胎被辞退，黑人在中国生三胎却拿到了在中国的居留证。中国不大力培养中国寒门学生，却每年把巨资送给穷弱国家的屌丝差生在中国吃喝嫖赌。</p>
+                                    </div>
+                                </div>
+                                <div class="demo-preview">
+                                    <img src="https://pic2.zhimg.com/a9a816b4a_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <h4>SEEKER <van-tag type="primary">用户</van-tag></h4>
+                                        <p>然而几代人的努力实现了阶级阶层的跨越 却又因为时局的变动一夕之间便可再次跌入谷底</p>
+                                    </div>
+                                </div>
+                            </van-skeleton>
+                        </van-cell>
+                    </van-cell-group>
+                </van-list>
+            </van-pull-refresh>
+        </van-popup>
+        <van-popup v-model:show="collectShow"
+                   round
+                   position="bottom"
+                   :style="{ height: '40%' }">
+            <van-picker
+                    show-toolbar
+                    title="分类列表"
+                    @confirm="confirmCategory"
+                    @cancel="cancelCategory"
+                    :columns="columns" />
+        </van-popup>
+
     </div>
 </template>
 <script>
@@ -184,6 +286,7 @@
     import { Toast } from 'vant';
     export default defineComponent({
         setup() {
+            const router = useRouter();
             const route = useRoute();
             const titleName = `${route.query.problemName}`;
             const active = ref(1);
@@ -193,8 +296,28 @@
                 history.back();
             };
             const showShare = ref(false);
+            let isLikeed = ref(false);
+            let isCalled = ref(false);
             let show = ref(false);
+            let loading = ref(false);
+            let collectShow = ref(false);
             let baseTouchTime = 0;
+            const confirmCategory = function(list){
+                // console.dir(list);
+                Toast("收藏成功");
+                isCalled.value = true;
+                collectShow.value = false;
+            };
+            const cancelCategory = function(){
+                isCalled.value = false;
+                collectShow.value = false;
+            };
+            const wirteQues = function(){
+                router.push({
+                    path:'/editor',
+                    query:{name:''}
+                })
+            };
             const optionsDownSelect = [
                 [
                     { name: '微信', icon: 'wechat' },
@@ -202,19 +325,65 @@
                     { name: 'QQ', icon: 'qq' },
                 ]
             ];
+            const columns = [
+                {
+                    text: '生活',
+                    children: [
+                        {
+                            text: '做菜',
+                        },
+                        {
+                            text: '跑步',
+                        },
+                        {
+                            text: '备孕',
+                        },
+                        {
+                            text: '买房',
+                        },
+                    ],
+                },
+                {
+                    text: '事业',
+                    children: [
+                        {
+                            text: '组建团队',
+                        },
+                        {
+                            text: '拓展视野',
+                        },
+                        {
+                            text: '精神食粮',
+                        },
+                        {
+                            text: '高效率沟通',
+                        },
+                    ],
+                },
+            ];
             const onOpenDownSelect = (option) => {
                 showShare.value = false;
             };
             const toTypeHanndle = (val) => {
                 //1:喜欢 2:收藏 3:评论 4:投币
                 if(val == 1){
-                    Toast('喜欢');
+                    if(isLikeed.value){
+                        isLikeed.value = false;
+                        Toast('取消喜欢');
+                    }else{
+                        isLikeed.value = true;
+                        Toast('喜欢成功');
+                    }
                 }
                 if(val == 2){
-                    Toast('收藏');
+                    if(isCalled.value){
+                        isCalled.value = false;
+                        Toast('取消收藏');
+                    }else{
+                        collectShow.value = true;
+                    }
                 }
                 if(val == 3){
-                    Toast('评论');
                     show.value = true;
                 }
                 if(val == 4){
@@ -225,15 +394,61 @@
                 baseTouchTime = new Date().getTime();
                 console.log("touch start");
             };
+            const thingList = ref([]);
+            const state = reactive({
+                list: thingList,
+                loading: false,
+                finished: false,
+                refreshing: false,
+            });
+            const onLoad = () => {
+                state.loading = true;
+                // 异步更新数据
+                setTimeout(() => {
+                    if(state.refreshing) {
+                        state.list = [];
+                        state.refreshing = false;
+                    }
+                    for (let i = 0; i < 1; i++) {
+                        state.list.push({id:1,title:"如何购买cpu？",keywords:["cpu性能","cpu","cpu类别"],desc:"CPU是计算机的主要设备之一，功能主要是解释计算机指令以及处理计算机软件中的数据。选择CPU时不止要考虑CPU，还要考虑到主板的搭配是不是可以发挥它的性能，内存的频率和CPU散热器的影响。"});
+                        state.list.push({id:2,title:"如何购买显卡？",keywords:["显卡","买显卡","显卡品牌"],desc:"显卡是计算机最基本配置、最重要的配件之一，负责主要的图形运算，所以玩大型游戏肯定需要一张强力的显卡，对于从事专业图形设计的人来说显卡也是尤为重要的."});
+                    }
+                    // 加载状态结束
+                    state.loading = false;
+                    // 数据全部加载完成
+                    if (state.list.length >= 6){
+                        state.finished = true;
+                    }
+                }, 1000);
+            };
+            const onRefresh = () => {
+                // 清空列表数据
+                state.finished = false;
+                //重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                state.loading = true;
+                onLoad();
+            };
             return {
                 showShare,
                 onOpenDownSelect,
                 optionsDownSelect,
+                confirmCategory,
+                cancelCategory,
                 titleName,
+                loading,
+                wirteQues,
+                state,
+                onRefresh,
+                onLoad,
+                isLikeed,
+                isCalled,
                 toPrve,
                 active,
                 gtouchstart,
                 toTypeHanndle,
+                collectShow,
+                columns,
                 show,
                 detailType
             }
@@ -244,7 +459,6 @@
 <style lang="less" scoped>
     :deep .van-icon{
         vertical-align: bottom;
-        font-size: 13px;
         margin-top: 3px;
     }
     :deep .van-tabbar-item__text{
@@ -254,6 +468,38 @@
         color: #646566;
         font-size: 13px;
         cursor: pointer;
+    }
+    .demo-skeleton ,.demo-preview{
+        display: flex;
+        padding: 0 16px;
+    }
+    .dppb{
+        padding-bottom: 20px;
+        border-bottom:1px solid #e3e3e3;
+    }
+    .demo-skeleton ,.demo-preview img {
+        -webkit-flex-shrink: 0;
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        border-radius: 15px;
+    }
+    .demo-skeleton ,.demo-preview ,.demo-content {
+        padding-top: 6px;
+    }
+    .demo-skeleton ,.demo-preview ,.demo-content h3 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .demo-skeleton ,.demo-preview ,.demo-content p {
+        margin: 13px 0 0;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .activeHannel{
+        color:#1989fa;
     }
     .commBot{
         position: fixed;

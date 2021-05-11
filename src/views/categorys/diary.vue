@@ -53,7 +53,7 @@
                         max-count="3" />
             </van-col>
         </van-row>
-        <van-row class="mt20">
+        <van-row class="mt20 mb20">
             <van-col span="22" offset="1">
                 <van-button type="primary" round size="large">提交</van-button>
             </van-col>

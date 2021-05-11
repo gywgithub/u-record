@@ -54,7 +54,7 @@
             <van-col span="8" class="tac font14 lh40 bd3f1 systemPresetBgColor">关于我们</van-col>
             <van-col span="8" class="tac font14 lh40  systemPresetBgColor">退出登录</van-col>
         </van-row>
-        <van-row class="mt20">
+        <van-row class="mt10">
             <van-col span="6" offset="9">
                 <img src="@/assets/elephant.png" alt="" class="icoElephant">
             </van-col>

@@ -10,7 +10,7 @@
                 :loading="state.loading"
                 :finished="state.finished"
                 finished-text="没有更多了"
-                style="margin-bottom: 60px;background-color: #F1F1F1;"
+                style="background-color: #F1F1F1;"
                 @load="onLoad">
             <van-cell-group>
                 <van-cell v-for="item in state.list" :key="item" :title="item.title" @click="toAmusementDetail(item)">
