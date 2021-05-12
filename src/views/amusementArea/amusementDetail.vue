@@ -190,17 +190,17 @@
                                                 :row="3"
                                                 :loading="loading">
                                             <div class="demo-preview" style="padding-left:0px;">
-                                                <img src="https://pic4.zhimg.com/v2-3435cadd547958e4a083a75a39e32602_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <img src="https://pic1.zhimg.com/v2-3ce282564a09b373c61706db72bc21eb_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
                                                 <div class="demo-content pt0-imp">
-                                                    <h4>西三九</h4>
-                                                    <p>是呀，都是普通人，能力也不行，为什么就非想着自己能一飞冲天呢～</p>
+                                                    <h4>哈士奇</h4>
+                                                    <p>你是认为取决于个人和时代吗？</p>
                                                 </div>
                                             </div>
                                             <div class="demo-preview" style="padding-left:0px;">
-                                                <img src="https://pic1.zhimg.com/v2-76ad52b8c0021e2f832a264672397048_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <img src="https://pic1.zhimg.com/v2-ca6a6c9b98e4c7682a7c3a6370631e7f_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
                                                 <div class="demo-content pt0-imp">
-                                                    <h4>charliedu</h4>
-                                                    <p>现在的小家庭模式不确定性太高了，抗风险能力太弱，出于本能反应，人就会表现出急功近利。可怜呀，这一代人就他一个。</p>
+                                                    <h4>艾达</h4>
+                                                    <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
                                                 </div>
                                             </div>
                                         </van-skeleton>
@@ -217,17 +217,17 @@
                                                 :row="3"
                                                 :loading="loading">
                                             <div class="demo-preview" style="padding-left:0px;">
-                                                <img src="https://pic1.zhimg.com/v2-3ce282564a09b373c61706db72bc21eb_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <img src="https://pic4.zhimg.com/v2-3435cadd547958e4a083a75a39e32602_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
                                                 <div class="demo-content pt0-imp">
-                                                    <h4>哈士奇</h4>
-                                                    <p>你是认为取决于个人和时代吗？</p>
+                                                    <h4>西三九</h4>
+                                                    <p>是呀，都是普通人，能力也不行，为什么就非想着自己能一飞冲天呢～</p>
                                                 </div>
                                             </div>
                                             <div class="demo-preview" style="padding-left:0px;">
-                                                <img src="https://pic1.zhimg.com/v2-ca6a6c9b98e4c7682a7c3a6370631e7f_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <img src="https://pic1.zhimg.com/v2-76ad52b8c0021e2f832a264672397048_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
                                                 <div class="demo-content pt0-imp">
-                                                    <h4>艾达</h4>
-                                                    <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
+                                                    <h4>charliedu</h4>
+                                                    <p>现在的小家庭模式不确定性太高了，抗风险能力太弱，出于本能反应，人就会表现出急功近利。可怜呀，这一代人就他一个。</p>
                                                 </div>
                                             </div>
                                         </van-skeleton>

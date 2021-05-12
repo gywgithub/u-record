@@ -15,11 +15,12 @@
                 <p>Harvey</p>
             </van-col>
         </van-row>
-        <van-cell title="我的象币" icon="balance-list-o">
-            <template #right-icon>
-                <van-cell title="单元格" is-link />
-            </template>
-        </van-cell>
+        <van-grid class="mt20">
+            <van-grid-item icon="photo-o" text="我的喜欢" />
+            <van-grid-item icon="photo-o" text="我的收藏" />
+            <van-grid-item icon="photo-o" text="文字" />
+            <van-grid-item icon="photo-o" text="文字" />
+        </van-grid>
         <van-row class="mt20">
             <van-col span="24">
                 <div class="van-cell">
@@ -54,11 +55,11 @@
             <van-col span="8" class="tac font14 lh40 bd3f1 systemPresetBgColor">关于我们</van-col>
             <van-col span="8" class="tac font14 lh40  systemPresetBgColor">退出登录</van-col>
         </van-row>
-        <van-row class="mt10">
-            <van-col span="6" offset="9">
-                <img src="@/assets/elephant.png" alt="" class="icoElephant">
-            </van-col>
-        </van-row>
+<!--        <van-row class="mt10">-->
+<!--            <van-col span="6" offset="9">-->
+<!--                <img src="@/assets/elephant.png" alt="" class="icoElephant">-->
+<!--            </van-col>-->
+<!--        </van-row>-->
     </div>
 </template>
 <script>
