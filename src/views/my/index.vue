@@ -16,10 +16,10 @@
             </van-col>
         </van-row>
         <van-grid class="mt20">
-            <van-grid-item icon="photo-o" text="我的喜欢" />
-            <van-grid-item icon="photo-o" text="我的收藏" />
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" />
+            <van-grid-item icon="like-o" text="我的喜欢" />
+            <van-grid-item icon="star-o" text="我的收藏" />
+            <van-grid-item icon="records" text="我的随笔" />
+            <van-grid-item icon="comment-circle-o" text="我的评论" />
         </van-grid>
         <van-row class="mt20">
             <van-col span="24">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="van-cell">
                     <i class="van-icon van-icon-balance-list-o van-cell__left-icon"></i>
-                    <div class="van-cell__title"><span>我的象币</span></div>
+                    <div class="van-cell__title"><span>我的钱包</span></div>
                     <i class="van-icon van-icon-arrow van-cell__right-icon"></i>
                 </div>
                 <div class="van-cell">
@@ -43,15 +43,15 @@
                     <div class="van-cell__title"><span>系统设置</span></div>
                     <i class="van-icon van-icon-arrow van-cell__right-icon"></i>
                 </div>
-                <div class="van-cell">
-                    <i class="van-icon van-icon-location-o van-cell__left-icon"></i>
-                    <div class="van-cell__title"><span>关于我们</span></div>
-                    <i class="van-icon van-icon-arrow van-cell__right-icon"></i>
-                </div>
+<!--                <div class="van-cell">-->
+<!--                    <i class="van-icon van-icon-location-o van-cell__left-icon"></i>-->
+<!--                    <div class="van-cell__title"><span>关于我们</span></div>-->
+<!--                    <i class="van-icon van-icon-arrow van-cell__right-icon"></i>-->
+<!--                </div>-->
             </van-col>
         </van-row>
         <van-row class="h40 mt35" gutter="10">
-            <van-col span="8" class="tac font14 lh40  systemPresetBgColor">意见反馈</van-col>
+            <van-col span="8" class="tac font14 lh40  systemPresetBgColor">建议与反馈</van-col>
             <van-col span="8" class="tac font14 lh40 bd3f1 systemPresetBgColor">关于我们</van-col>
             <van-col span="8" class="tac font14 lh40  systemPresetBgColor">退出登录</van-col>
         </van-row>

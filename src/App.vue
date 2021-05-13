@@ -106,9 +106,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-*{padding:0px;margin:0px;}
-html,body{
-    font-family:"Microsoft Yahei";
+#app{
     height:100%;
 }
 </style>

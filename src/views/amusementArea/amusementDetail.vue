@@ -264,7 +264,32 @@
                     @cancel="cancelCategory"
                     :columns="columns" />
         </van-popup>
-
+        <van-popup v-model:show="goldShow"
+                   round
+                   position="bottom"
+                   :style="{ height: '30%' }">
+            <div class="pwz" style="">
+                <div class="cbFlex">
+                    <div class="commBtn fc99" @click="cancelGold">取消</div>
+                    <div class="commBtn fc33" @click="conmitGold">确定</div>
+                </div>
+            </div>
+            <swiper
+                    :slides-per-view="3"
+                    :space-between="50"
+                    centered-slides="true"
+                    @swiper="onSwiper"
+                    @slideChange="onSlideChange">
+                <swiper-slide v-for="item in goldList">
+                    <div class="commSlide">
+                        <div class="commIco">
+                            <van-icon name="cash-back-record font55-imp"/>
+                            <p>{{item.goldNumber}}金币</p>
+                        </div>
+                    </div>
+                </swiper-slide>
+            </swiper>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -284,7 +309,13 @@
     } from 'vue';
     import { useRoute, useRouter } from 'vue-router'
     import { Toast } from 'vant';
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/swiper.less';
     export default defineComponent({
+        components: {
+            Swiper,
+            SwiperSlide,
+        },
         setup() {
             const router = useRouter();
             const route = useRoute();
@@ -387,8 +418,17 @@
                     show.value = true;
                 }
                 if(val == 4){
-                    Toast('投币');
+                    goldShow.value = true;
                 }
+            };
+            let currGoldObjct = {};
+            const cancelGold = () =>{
+                goldShow.value = false;
+            };
+            const conmitGold = () =>{
+                goldShow.value = false;
+                Toast(`${currGoldObjct.goldNumber}金币投币成功`);
+                console.dir(currGoldObjct);
             };
             const gtouchstart = (val) => {
                 baseTouchTime = new Date().getTime();
@@ -429,12 +469,27 @@
                 state.loading = true;
                 onLoad();
             };
+            let onSwiper = (swiper) => {
+                console.log(swiper);
+            };
+            let onSlideChange = (swiper) => {
+                currGoldObjct = goldList[swiper.activeIndex];
+            };
+            let goldShow = ref(false);
+            let goldList = [{id:1,goldNumber:1},{id:2,goldNumber:2},{id:3,goldNumber:3},{id:4,goldNumber:4},{id:5,goldNumber:5},
+                                {id:6,goldNumber:10},{id:7,goldNumber:20},{id:8,goldNumber:30},{id:9,goldNumber:40},{id:10,goldNumber:50}];
             return {
                 showShare,
+                goldList,
+                conmitGold,
+                cancelGold,
+                onSwiper,
+                onSlideChange,
                 onOpenDownSelect,
                 optionsDownSelect,
                 confirmCategory,
                 cancelCategory,
+                goldShow,
                 titleName,
                 loading,
                 wirteQues,
@@ -454,6 +509,7 @@
             }
         },
 
+
     })
 </script>
 <style lang="less" scoped>
@@ -463,6 +519,66 @@
     }
     :deep .van-tabbar-item__text{
         font-size: 13px;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        transition: 300ms;
+        transform: scale(0.8);
+        color: #999;
+    }
+    .swiper-slide-active,.swiper-slide-duplicate-active{
+        transform: scale(1);
+        color: #000;
+    }
+    .font55-imp{
+        font-size:40px;
+    }
+    .pwz{
+        position:fixed;
+        width:100%;
+        z-index: 10;
+    }
+    .cbFlex{
+        display:flex;
+        justify-content:space-between;
+        align-items: center;
+    }
+    .commBtn{
+        width:20%;
+        height:45px;
+        text-align: center;
+        line-height: 45px;
+        font-size:14px;
+    }
+    .commSlide{
+        display:flex;
+        justify-content:center;
+        align-content:center;
+    }
+    .commIco{
+        width:60px;
+        height:60px;
+        border-radius: 25px;
     }
     .hanndleComm{
         color: #646566;
