@@ -8,6 +8,7 @@ import {
     Col,
     Row,
     Uploader,
+    Sticky,
     Popover,
     Picker,
     Skeleton,
@@ -48,6 +49,7 @@ instace.use(Button)
        .use(Row)
        .use(ShareSheet)
        .use(Uploader)
+       .use(Sticky)
        .use(Popover)
        .use(Picker)
        .use(Skeleton)

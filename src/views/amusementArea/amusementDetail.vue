@@ -144,7 +144,7 @@
                     <van-icon name="star" size="20" :class="isCalled ? 'activeHannel' : ''"/>
                     <p class="mt5 mb8" :class="isCalled ? 'activeHannel' : ''">收藏&nbsp;2.4万</p>
                 </van-col>
-                <van-col span="6" class="hanndleComm tac br1" @touchstart="gtouchstart()" @click="toTypeHanndle(3)" >
+                <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(3)" >
                     <van-icon name="chat" size="20"/>
                     <p class="mt5 mb8">评论(999+)</p>
                 </van-col>
@@ -163,8 +163,13 @@
                    closeable
                    close-icon="close"
                    position="bottom"
-                   class="pb20 pt20"
+                   class="pb20"
                    :style="{ height: '90%' }">
+            <div class="topFixed">
+                <i class="van-badge__wrapper van-icon van-icon-close van-popup__close-icon van-popup__close-icon--top-right" role="button" tabindex="0" @click="closeComd"></i>
+                <p>全部评论</p>
+           </div>
+           <div class="h50"></div>
             <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
                 <van-list
                         :loading="state.loading"
@@ -332,7 +337,6 @@
             let show = ref(false);
             let loading = ref(false);
             let collectShow = ref(false);
-            let baseTouchTime = 0;
             const confirmCategory = function(list){
                 // console.dir(list);
                 Toast("收藏成功");
@@ -350,6 +354,11 @@
                 })
             };
             const optionsDownSelect = [
+                [
+                    { name: '稍后看', icon: 'http://mym.youmias.com/static/img/books.png?v=12' },
+                    { name: '复制链接', icon: 'link' },
+                    { name: '二维码', icon: 'qrcode' },
+                ],
                 [
                     { name: '微信', icon: 'wechat' },
                     { name: '微博', icon: 'weibo' },
@@ -430,10 +439,6 @@
                 Toast(`${currGoldObjct.goldNumber}金币投币成功`);
                 console.dir(currGoldObjct);
             };
-            const gtouchstart = (val) => {
-                baseTouchTime = new Date().getTime();
-                console.log("touch start");
-            };
             const thingList = ref([]);
             const state = reactive({
                 list: thingList,
@@ -478,9 +483,13 @@
             let goldShow = ref(false);
             let goldList = [{id:1,goldNumber:1},{id:2,goldNumber:2},{id:3,goldNumber:3},{id:4,goldNumber:4},{id:5,goldNumber:5},
                                 {id:6,goldNumber:10},{id:7,goldNumber:20},{id:8,goldNumber:30},{id:9,goldNumber:40},{id:10,goldNumber:50}];
+            const closeComd = function(){
+                show.value = false;
+            }
             return {
                 showShare,
                 goldList,
+                closeComd,
                 conmitGold,
                 cancelGold,
                 onSwiper,
@@ -500,7 +509,6 @@
                 isCalled,
                 toPrve,
                 active,
-                gtouchstart,
                 toTypeHanndle,
                 collectShow,
                 columns,
@@ -519,6 +527,10 @@
     }
     :deep .van-tabbar-item__text{
         font-size: 13px;
+    }
+    :deep .van-popup__close-icon--top-right{
+        top: 8px;
+        right: 16px;
     }
     .swiper-container {
         width: 100%;
@@ -549,6 +561,16 @@
     .swiper-slide-active,.swiper-slide-duplicate-active{
         transform: scale(1);
         color: #000;
+    }
+    .topFixed{
+        text-align: center;
+        height: 45px;
+        width: 100%;
+        background: #fff;
+        line-height: 45px;
+        z-index: 10;
+        position: fixed;
+        border-radius: 30px 30px;
     }
     .font55-imp{
         font-size:40px;

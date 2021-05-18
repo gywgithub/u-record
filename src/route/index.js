@@ -166,7 +166,7 @@ const routes = [
         component: () => import('../views/details/teatext.vue'),
         meta:{
             isAuth : false,
-            isTabbar : true
+            isTabbar : false
         }
     },
     {
