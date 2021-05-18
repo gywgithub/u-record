@@ -97,6 +97,19 @@
                 <i class="van-badge__wrapper van-icon van-icon-close van-popup__close-icon van-popup__close-icon--top-right" role="button" tabindex="0" @click="closeComd"></i>
                 <p>全部评论</p>
            </div>
+            <div class="topFixedbot" @click="showCommd">
+                <van-cell-group>
+                    <van-field
+                            v-model="value1"
+                            rows="1"
+                            autosize
+                            label=""
+                            left-icon=""
+                            right-icon="share"
+                            type="textarea"
+                            placeholder="输入评论"/>
+                </van-cell-group>
+            </div>
            <div class="h50"></div>
             <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
                 <van-list
@@ -115,8 +128,17 @@
                                 <div class="demo-preview dppb">
                                     <img src="https://pic4.zhimg.com/v2-51f0f2a220b7393f463c4d44c5272056_xs.jpg?source=06d4cd63">
                                     <div class="demo-content">
-                                        <h4>Never GiveUp <van-tag type="primary">用户</van-tag></h4>
-                                        <p style="border-bottom:1px solid #eee;padding-bottom: 15px;">年纪越大，越渐渐地明白，中国古人的智慧是无穷的。我常常感觉自己数年的学简直都白上了。可惜，考试制度决定了我们现在大部分孩子们只能学到无用的糟粕罢了。<br/><br/>愚蠢对某些人来说，是他们最喜闻乐见的东西。</p>
+                                        <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                            <h4>Never GiveUp <van-tag type="primary">用户</van-tag></h4>
+                                            <p>年纪越大，越渐渐地明白，中国古人的智慧是无穷的。我常常感觉自己数年的学简直都白上了。可惜，考试制度决定了我们现在大部分孩子们只能学到无用的糟粕罢了。<br/><br/>愚蠢对某些人来说，是他们最喜闻乐见的东西。</p>
+                                            <div class="operate-grounp">
+                                                <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                    &nbsp;&nbsp;
+                                                    <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                </p>
+                                                <p class="fc99">2021-05-25</p>
+                                            </div>
+                                        </div>
                                         <van-skeleton
                                                 title
                                                 avatar
@@ -124,16 +146,34 @@
                                                 :loading="loading">
                                             <div class="demo-preview" style="padding-left:0px;">
                                                 <img src="https://pic1.zhimg.com/v2-3ce282564a09b373c61706db72bc21eb_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
-                                                <div class="demo-content pt0-imp">
-                                                    <h4>哈士奇</h4>
-                                                    <p>你是认为取决于个人和时代吗？</p>
+                                                <div class="demo-content pt0-imp w100">
+                                                    <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                                        <h4>哈士奇</h4>
+                                                        <p>你是认为取决于个人和时代吗？</p>
+                                                        <div class="operate-grounp">
+                                                            <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                                &nbsp;&nbsp;
+                                                                <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                            </p>
+                                                            <p class="fc99">2021-06-15</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="demo-preview" style="padding-left:0px;">
                                                 <img src="https://pic1.zhimg.com/v2-ca6a6c9b98e4c7682a7c3a6370631e7f_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
-                                                <div class="demo-content pt0-imp">
-                                                    <h4>艾达</h4>
-                                                    <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
+                                                <div class="demo-content pt0-imp w100">
+                                                    <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                                        <h4>艾达</h4>
+                                                        <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
+                                                        <div class="operate-grounp">
+                                                            <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                                &nbsp;&nbsp;
+                                                                <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                            </p>
+                                                            <p class="fc99">2021-06-15</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </van-skeleton>
@@ -403,6 +443,20 @@
         right: 16px;
     }
     #teatext{
+        .operate-grounp{
+            display: flex;
+            justify-content:space-between;
+        }
+        .topFixedbot{
+            width: 100%;
+            max-height: 80%;
+            overflow: scroll;
+            z-index: 10;
+            background-color: #fff;
+            position: fixed;
+            left:0px;
+            bottom: 0px;
+        }
         .topFixed{
             text-align: center;
             height: 45px;
@@ -523,7 +577,7 @@
             margin-right: 10px;
             border-radius: 15px;
         }
-        .demo-skeleton ,.demo-preview ,.demo-content {
+        .demo-skeleton  ,.demo-content {
             padding-top: 6px;
         }
         .demo-skeleton ,.demo-preview ,.demo-content h3 {

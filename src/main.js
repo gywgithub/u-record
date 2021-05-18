@@ -9,6 +9,7 @@ import {
     Row,
     Uploader,
     Sticky,
+    Overlay,
     Popover,
     Picker,
     Skeleton,
@@ -25,7 +26,6 @@ import {
     Popup,
     Dialog,
     Loading,
-    Overlay,
     List,
     PullRefresh,
     Collapse,
@@ -50,6 +50,7 @@ instace.use(Button)
        .use(ShareSheet)
        .use(Uploader)
        .use(Sticky)
+       .use(Overlay)
        .use(Popover)
        .use(Picker)
        .use(Skeleton)
@@ -63,7 +64,6 @@ instace.use(Button)
        .use(Popup)
        .use(Dialog)
        .use(Loading)
-       .use(Overlay)
        .use(List)
        .use(PullRefresh)
        .use(Collapse)
