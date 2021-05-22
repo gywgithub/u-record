@@ -19,6 +19,15 @@ const routes = [
         }
     },
     {
+        path: '/userTeam',
+        name: 'UserTeam',
+        component: () => import('../views/team/userTeam.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
         path: '/amusementDetail',
         name: 'AmusementDetail',
         component: () => import('../views/amusementArea/amusementDetail.vue'),

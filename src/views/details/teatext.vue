@@ -468,10 +468,10 @@
             border-radius: 30px 30px;
         }
         .prveIco{
-            position: absolute;
+            position: fixed;
             left: 8px;
             top: 11px;
-            z-index: 9;
+            z-index: 888;
         }
         .swiper-container {
             width: 100%;

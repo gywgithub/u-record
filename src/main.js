@@ -8,6 +8,7 @@ import {
     Col,
     Row,
     Uploader,
+    SwipeCell,
     Sticky,
     Overlay,
     Popover,
@@ -49,6 +50,7 @@ instace.use(Button)
        .use(Row)
        .use(ShareSheet)
        .use(Uploader)
+       .use(SwipeCell)
        .use(Sticky)
        .use(Overlay)
        .use(Popover)
