@@ -5,8 +5,17 @@ const routes = [
         name: 'Recommend',
         component: () => import('../views/categorys/recommend.vue'),
         meta:{
-            isAuth : false, //是否显示主菜单
+            isAuth : false,
             isTabbar : true //是否显示主菜单
+        }
+    },
+    {
+        path: '/seeLater',
+        name: 'SeeLater',
+        component: () => import('../views/seeLater/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
         }
     },
     {

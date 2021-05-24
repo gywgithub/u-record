@@ -7,6 +7,8 @@ import './common/reset.css'
 import {
     Col,
     Row,
+    DropdownMenu,
+    DropdownItem,
     Uploader,
     SwipeCell,
     Sticky,
@@ -48,6 +50,8 @@ instace.use(Button)
        .use(Form)
        .use(Col)
        .use(Row)
+       .use(DropdownMenu)
+       .use(DropdownItem)
        .use(ShareSheet)
        .use(Uploader)
        .use(SwipeCell)

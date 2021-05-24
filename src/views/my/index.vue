@@ -17,10 +17,10 @@
             </van-col>
         </van-row>
         <van-grid class="mt20">
-            <van-grid-item icon="bar-chart-o" text="稍后观看" />
-            <van-grid-item icon="star-o" text="我的收藏" />
-            <van-grid-item icon="newspaper-o" text="我的文章" />
-            <van-grid-item icon="records" text="我的随笔" />
+            <van-grid-item @click="toTarbarPage(1)" icon="bar-chart-o" text="稍后观看" />
+            <van-grid-item @click="toTarbarPage(2)" icon="star-o" text="我的收藏" />
+            <van-grid-item @click="toTarbarPage(3)" icon="newspaper-o" text="我的文章" />
+            <van-grid-item @click="toTarbarPage(4)" icon="records" text="我的随笔" />
         </van-grid>
         <van-row class="mt20">
             <van-col span="24">
@@ -109,9 +109,18 @@
                         query:{name:''}
                     })
                 }
-            }
+            };
+            const toTarbarPage = function(val){
+                if(val == 1){
+                    router.push({
+                        path:'/seeLater',
+                        query:{name:''}
+                    })
+                }
+            };
             return {
                 copyUserId,
+                toTarbarPage,
                 toRoutePage
             }
         }
