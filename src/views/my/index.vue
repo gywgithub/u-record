@@ -117,6 +117,24 @@
                         query:{name:''}
                     })
                 }
+                if(val == 2){
+                    router.push({
+                        path:'/favorites',
+                        query:{name:''}
+                    })
+                }
+                if(val == 3){
+                    router.push({
+                        path:'/article',
+                        query:{name:''}
+                    })
+                }
+                if(val == 4){
+                    router.push({
+                        path:'/essay',
+                        query:{name:''}
+                    })
+                }
             };
             return {
                 copyUserId,

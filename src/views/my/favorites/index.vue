@@ -1,4 +1,11 @@
 <template>
+    <div class="fixTabbar">
+        <van-dropdown-menu active-color="#1989fa" class="btbor1">
+            <van-dropdown-item v-model="valueMenu1" class="brbor1" :options="option1" @change="getDyChildMenu(option1[valueMenu1],1)"/>
+            <van-dropdown-item v-model="valueMenu2" :options="option2" @change="getDyChildMenu(option2[valueMenu2],2)"/>
+        </van-dropdown-menu>
+    </div>
+    <div class="h50"></div>
     <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
         <van-list
                 :loading="state.loading"
@@ -149,7 +156,7 @@
                     // 加载状态结束
                     state.loading = false;
                     // 数据全部加载完成
-                    if (state.list.length >= 4){
+                    if (state.list.length >= 6){
                         state.finished = true;
                     }
                 }, 1000);
@@ -162,11 +169,9 @@
                 state.loading = true;
                 onLoad();
             };
-            const active = ref(2);
             return {
                 state,
                 onLoad,
-                active,
                 onRefresh,
                 stateMenu,
                 loddingshow,

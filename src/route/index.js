@@ -19,6 +19,33 @@ const routes = [
         }
     },
     {
+        path: '/favorites',
+        name: 'Favorites',
+        component: () => import('../views/my/favorites/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/article',
+        name: 'Article',
+        component: () => import('../views/my/article/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/essay',
+        name: 'Essay',
+        component: () => import('../views/my/essay/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
         path: '/amusement',
         name: 'Amusement',
         component: () => import('../views/amusementArea/recommend.vue'),
