@@ -1,3 +1,4 @@
+html,body,#app{height:100%;}
 .systemPresetBgColor{background-color: #ffffff;}
 .systemPresetFontColor{color: #ffffff;}
 .systemBgColor{background-color: #f1f1f1;}
@@ -34,6 +35,7 @@
 .mr20{margin-right:20px;}
 .mr25{margin-right:25px;}
 .mr30{margin-right:30px;}
+.pt0{padding-top:0px;}
 .pt5{padding-top:5px;}
 .pt10{padding-top:10px;}
 .pt15{padding-top:15px;}
@@ -106,6 +108,8 @@
 .font26{font-size:26px;}
 .font28{font-size:28px;}
 .font30{font-size:30px;}
+.w100{width:100%;}
+.h100{height:100%;}
 .fcf1{color:#f1f1f1;}
 .fce3{color:#e3e3e3;}
 .fc99{color:#999999;}

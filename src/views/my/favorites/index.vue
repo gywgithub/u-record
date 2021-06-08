@@ -1,15 +1,16 @@
 <template>
-    <!-- 模糊搜索 ，关键词  >  title标题-->
-    <van-search
-            v-model="value"
-            label=""
-            placeholder="请输入搜索关键词">
-    </van-search>
+    <div class="fixTabbar">
+        <van-dropdown-menu active-color="#1989fa" class="btbor1">
+            <van-dropdown-item v-model="valueMenu1" class="brbor1" :options="option1" @change="getDyChildMenu(option1[valueMenu1],1)"/>
+            <van-dropdown-item v-model="valueMenu2" :options="option2" @change="getDyChildMenu(option2[valueMenu2],2)"/>
+        </van-dropdown-menu>
+    </div>
+    <div class="h50"></div>
     <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
         <van-list
                 :loading="state.loading"
                 :finished="state.finished"
-                finished-text="没有更多了"
+                finished-text=""
                 style="background-color: #F1F1F1;"
                 @load="onLoad">
             <van-cell-group>
@@ -39,6 +40,13 @@
             title=""
             :options="optionsDownSelect"
             @select="onOpenDownSelect"/>
+    <van-overlay v-model:show="loddingshow"  @click="loddingshow = true"  >
+        <div class="wrapper" @click.stop>
+            <van-loading size="24px">
+                请求中...
+            </van-loading>
+        </div>
+    </van-overlay>
 </template>
 <script>
     import {
@@ -58,6 +66,51 @@
     import { Toast,Popover } from 'vant'
     export default defineComponent({
         setup() {
+            let  valueMenu1 = ref(0);
+            let  valueMenu2 = ref(0);
+            const loddingshow = ref(false);
+            let  getDyChildMenu = function(item,type){
+                if(type == 2){ console.log(item.text); return;}
+                valueMenu2.value = 0;
+                loddingshow.value = true;
+                if(item.text == "默认" || item.text == "生活"){
+                    Object.assign(option2,[
+                        { id:1 , text: '默认', value: 0 },
+                        { id:2 , text: '做菜', value: 1 },
+                        { id:3 , text: '跑步', value: 2 },
+                        { id:4 , text: '备孕', value: 3 },
+                        { id:5 , text: '买房', value: 4 }
+                    ]);
+                }
+                if(item.text == "事业"){
+                    Object.assign(option2,[
+                        { id:1 , text: '默认', value: 0 },
+                        { id:2 , text: '组建团队', value: 1 },
+                        { id:3 , text: '拓展视野', value: 2 },
+                        { id:4 , text: '精神食粮', value: 3 },
+                        { id:5 , text: '高效率沟通', value: 4 }
+                    ]);
+                }
+                setTimeout(function(){
+                    loddingshow.value = false;
+                },1000)
+            };
+            let stateMenu = reactive({
+                value1: 0,
+                value2: 'a',
+            });
+            let option1 = reactive([
+                { id:1 , text: '默认', value: 0 },
+                { id:2 , text: '生活', value: 1 },
+                { id:3 , text: '事业', value: 2 },
+            ]);
+            let option2 = reactive([
+                { id:1 , text: '默认', value: 0 },
+                { id:2 , text: '做菜', value: 1 },
+                { id:3 , text: '跑步', value: 3 },
+                { id:4 , text: '备孕', value: 4 },
+                { id:5 , text: '买房', value: 5 }
+            ]);
             const showShare = ref(false);
             const optionsDownSelect = [
                 [
@@ -75,7 +128,6 @@
                 showShare.value = false;
             };
             const router = useRouter();
-            const value = ref('');
             const thingList = ref([]);
             const state = reactive({
                 list: thingList,
@@ -97,16 +149,14 @@
                         state.list = [];
                         state.refreshing = false;
                     }
-                    for (let i = 0; i < 2; i++) {
+                    for (let i = 0; i < 1; i++) {
                         state.list.push({id:1,title:"有哪些你珍藏了许久的话？",nickName:"你在说笑吗",imgUrl:"https://pic3.zhimg.com/50/v2-8eec876e91556451c12d64601613ddf8_s.jpg",signature:"一个积极向上⬆️的美少女 好物V❤️Aixun_940412",keywords:["句子","情话","珍藏的句子"],desc:"1.你没理解我的那些瞬间,我从来没怪过你,你也可以永远长不大,可我不能永远没有安全感。 2.你不来找我 我也没办法说想你。3.很多事情我能想通 也能接受 但我很难过"});
                         state.list.push({id:2,title:"一个精英的诞生，家庭因素有多大？",nickName:"非非非常喜欢德约",imgUrl:"https://pic2.zhimg.com/50/v2-c6ce10ffbe13f6f141512b7440ebbcb2_s.jpg",signature:"一个积极向上⬆️的美少女 好物V❤️Aixun_940412",keywords:["显卡","买显卡","显卡品牌"],desc:"很多人有个误区，他们说现在的社会“上升通道逐渐关闭”、“阶层日益固化”，是社会病了。但其实，这才是社会原本的常态。中国过去的两千年里，大部分时间都是如此。西方"});
-                        state.list.push({id:3,title:"北京有哪些深藏不露的餐馆？",nickName:"不疯魔不成活",imgUrl:"https://img01.yzcdn.cn/vant/cat.jpeg",signature:"一个积极向上⬆️的美少女 好物V❤️Aixun_940412",keywords:["主板"],desc:"（本答案只涉及北京东边区域，西边的北京对我来说就是外国。）只推荐平价，TRB这种虽然知道的不算太多也不算太少，但还是以后写在“北京壕餐厅”这样的问题里吧"});
-                        state.list.push({id:4,title:"有哪些比较好吃的泡面/方便面推荐？",nickName:"露露思密达",imgUrl:"https://pic3.zhimg.com/50/v2-932345ead83ad103c950ed40ccf33abf_s.jpg",signature:"一个积极向上⬆️的美少女 好物V❤️Aixun_940412",keywords:["27寸显示器","色域","ips"],desc:"本泡面达人激动地张牙舞爪！！！是时候给大伙儿掏出我TOP5的泡面清单了！！温馨提醒：为了维持大家与舍友之间的友好关系，保持相亲相爱、杜绝刀光剑影，不建议在夜深人静时悄咪咪吃以下10款泡面。"});
                     }
                     // 加载状态结束
                     state.loading = false;
                     // 数据全部加载完成
-                    if (state.list.length >= 36){
+                    if (state.list.length >= 6){
                         state.finished = true;
                     }
                 }, 1000);
@@ -121,10 +171,16 @@
             };
             return {
                 state,
-                value,
                 onLoad,
                 onRefresh,
+                stateMenu,
+                loddingshow,
                 showShare,
+                valueMenu1,
+                valueMenu2,
+                getDyChildMenu,
+                option1,
+                option2,
                 optionsDownSelect,
                 onOpenDownSelect,
                 toAmusementDetail
@@ -139,11 +195,37 @@
     :deep .van-popover__wrapper {
         margin-right:10px;
     }
+    :deep .van-dropdown-menu__item:first-child{
+        border-right: 1px solid #F1F1F1;
+    }
+    .van-overlay{
+        z-index: 10;
+    }
+    .fixTabbar{
+        position: fixed;
+        width:100%;
+        height:50px;
+        z-index: 3;
+    }
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .block {
+        width: 120px;
+        height: 120px;
+        background-color: #fff;
+    }
     .setFontSize{
         font-size:26px;
     }
     .categoryList{
         display: flex;
+    }
+    .btbor1{
+        border-bottom: 1px solid #F1F1F1;
     }
     .thingWarp{
         overflow: hidden;

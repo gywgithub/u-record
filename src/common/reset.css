@@ -1,1 +1,1 @@
-* { touch-action: none;touch-action: pan-x; }
+* { touch-action: manipulation; margin:0px;padding:0px;}

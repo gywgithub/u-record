@@ -5,14 +5,59 @@ const routes = [
         name: 'Recommend',
         component: () => import('../views/categorys/recommend.vue'),
         meta:{
-            isAuth : false, //是否显示主菜单
+            isAuth : false,
             isTabbar : true //是否显示主菜单
+        }
+    },
+    {
+        path: '/seeLater',
+        name: 'SeeLater',
+        component: () => import('../views/seeLater/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/favorites',
+        name: 'Favorites',
+        component: () => import('../views/my/favorites/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/article',
+        name: 'Article',
+        component: () => import('../views/my/article/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/essay',
+        name: 'Essay',
+        component: () => import('../views/my/essay/index.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
         }
     },
     {
         path: '/amusement',
         name: 'Amusement',
         component: () => import('../views/amusementArea/recommend.vue'),
+        meta:{
+            isAuth : false,
+            isTabbar : true
+        }
+    },
+    {
+        path: '/userTeam',
+        name: 'UserTeam',
+        component: () => import('../views/team/userTeam.vue'),
         meta:{
             isAuth : false,
             isTabbar : true
@@ -166,7 +211,7 @@ const routes = [
         component: () => import('../views/details/teatext.vue'),
         meta:{
             isAuth : false,
-            isTabbar : true
+            isTabbar : false
         }
     },
     {

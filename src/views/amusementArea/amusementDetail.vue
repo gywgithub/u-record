@@ -10,7 +10,7 @@
                 <p class="titleEplice">{{titleName}}</p>
             </template>
             <template #right>
-                <van-icon name="edit" class="editFeedfack"/><span class="editTxt mr15">写回答</span>
+                <van-icon name="edit" class="editFeedfack"/><span class="editTxt mr15" @click="wirteQues">写回答</span>
                 <van-icon name="ellipsis" class="moreHanndle" @click.stop="showShare = true"/>
             </template>
         </van-nav-bar>
@@ -137,14 +137,14 @@
             <div class="h70"></div>
             <van-row class="commBot borTop1">
                 <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(1)">
-                    <van-icon name="like" size="20"/>
-                    <p class="mt5 mb5">喜欢&nbsp;6.1万</p>
+                    <van-icon name="like" size="20" :class="isLikeed ? 'activeHannel' : ''"/>
+                    <p class="mt5 mb5" :class="isLikeed ? 'activeHannel' : ''">喜欢&nbsp;6.1万</p>
                 </van-col>
                 <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(2)">
-                    <van-icon name="star" size="20"/>
-                    <p class="mt5 mb8">收藏&nbsp;2.4万</p>
+                    <van-icon name="star" size="20" :class="isCalled ? 'activeHannel' : ''"/>
+                    <p class="mt5 mb8" :class="isCalled ? 'activeHannel' : ''">收藏&nbsp;2.4万</p>
                 </van-col>
-                <van-col span="6" class="hanndleComm tac br1" @touchstart="gtouchstart()" @click="toTypeHanndle(3)" >
+                <van-col span="6" class="hanndleComm tac br1" @click="toTypeHanndle(3)" >
                     <van-icon name="chat" size="20"/>
                     <p class="mt5 mb8">评论(999+)</p>
                 </van-col>
@@ -161,8 +161,233 @@
         <van-popup v-model:show="show"
                    round
                    closeable
+                   close-icon="close"
                    position="bottom"
-                   :style="{ height: '80%' }" />
+                   class="pb20"
+                   :style="{ height: '90%' }">
+            <div class="topFixed">
+                <i class="van-badge__wrapper van-icon van-icon-close van-popup__close-icon van-popup__close-icon--top-right" role="button" tabindex="0" @click="closeComd"></i>
+                <p>全部评论</p>
+           </div>
+           <div class="topFixedbot" @click="showCommd">
+               <van-cell-group>
+                   <van-field
+                           v-model="value1"
+                           rows="1"
+                           readonly
+                           autosize
+                           label=""
+                           left-icon=""
+                           right-icon="share"
+                           type="textarea"
+                           placeholder="输入评论"/>
+               </van-cell-group>
+           </div>
+           <div class="h50"></div>
+            <van-pull-refresh v-model="state.refreshing" @refresh="onRefresh">
+                <van-list
+                        :loading="state.loading"
+                        :finished="state.finished"
+                        finished-text="没有更多了"
+                        style=""
+                        @load="onLoad">
+                    <van-cell-group>
+                        <van-cell v-for="item in state.list" :key="item" :title="item.title">
+                            <van-skeleton
+                                    title
+                                    avatar
+                                    :row="3"
+                                    :loading="loading">
+                                <div class="demo-preview dppb">
+                                    <img src="https://pic4.zhimg.com/v2-51f0f2a220b7393f463c4d44c5272056_xs.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                            <h4>Never GiveUp <van-tag type="primary">用户</van-tag></h4>
+                                            <p>年纪越大，越渐渐地明白，中国古人的智慧是无穷的。我常常感觉自己数年的学简直都白上了。可惜，考试制度决定了我们现在大部分孩子们只能学到无用的糟粕罢了。<br/><br/>愚蠢对某些人来说，是他们最喜闻乐见的东西。</p>
+                                            <div class="operate-grounp">
+                                                <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                    &nbsp;&nbsp;
+                                                    <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                </p>
+                                                <p class="fc99">2021-04-15</p>
+                                            </div>
+                                        </div>
+                                        <van-skeleton
+                                                title
+                                                avatar
+                                                :row="3"
+                                                :loading="loading">
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-3ce282564a09b373c61706db72bc21eb_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp w100">
+                                                    <h4>哈士奇</h4>
+                                                    <p>你是认为取决于个人和时代吗？</p>
+                                                    <div class="operate-grounp">
+                                                        <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                            &nbsp;&nbsp;
+                                                            <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                        </p>
+                                                        <p class="fc99">2021-04-30</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-ca6a6c9b98e4c7682a7c3a6370631e7f_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp w100">
+                                                    <h4>艾达</h4>
+                                                    <p>直接起义呢，像朱元璋那样。唯一的办法是做官太绝对了</p>
+                                                    <div class="operate-grounp">
+                                                        <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                            &nbsp;&nbsp;
+                                                            <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                        </p>
+                                                        <p class="fc99">2021-05-25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </van-skeleton>
+                                    </div>
+                                </div>
+                                <div class="demo-preview dppb">
+                                    <img src="https://pic2.zhimg.com/v2-d8581cdec1d1088827cc63225afc6cad_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                            <h4>聊天疲劳 <van-tag type="primary">vip2</van-tag></h4>
+                                            <p >现在很多人要求的都是一代实现阶级跨越，否则就满心怨愤，因为我们是新国家新社会……在历史看来，没有新旧之分，都是过程的瞬间。</p>
+                                            <div class="operate-grounp">
+                                                <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                    &nbsp;&nbsp;
+                                                    <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                </p>
+                                                <p class="fc99">2021-05-25</p>
+                                            </div>
+                                        </div>
+                                        <van-skeleton
+                                                title
+                                                avatar
+                                                :row="3"
+                                                :loading="loading">
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic4.zhimg.com/v2-3435cadd547958e4a083a75a39e32602_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp w100">
+                                                    <h4>西三九</h4>
+                                                    <p>是呀，都是普通人，能力也不行，为什么就非想着自己能一飞冲天呢～</p>
+                                                    <div class="operate-grounp">
+                                                        <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                            &nbsp;&nbsp;
+                                                            <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                        </p>
+                                                        <p class="fc99">2021-05-25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="demo-preview" style="padding-left:0px;">
+                                                <img src="https://pic1.zhimg.com/v2-76ad52b8c0021e2f832a264672397048_s.jpg?source=06d4cd63" style="width:20px;height:20px;">
+                                                <div class="demo-content pt0-imp w100">
+                                                    <h4>charliedu</h4>
+                                                    <p>现在的小家庭模式不确定性太高了，抗风险能力太弱，出于本能反应，人就会表现出急功近利。可怜呀，这一代人就他一个。</p>
+                                                    <div class="operate-grounp">
+                                                        <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                            &nbsp;&nbsp;
+                                                            <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                        </p>
+                                                        <p class="fc99">2021-05-25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </van-skeleton>
+                                    </div>
+                                </div>
+                                <div class="demo-preview">
+                                    <img src="https://pic1.zhimg.com/v2-3d3d524044b90cedb50db24659009331_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                            <h4>lianjiecai <van-tag type="primary">vip1</van-tag></h4>
+                                            <p>我越看越觉得悲哀。中国家长花巨资培养孩子，中国学生勤奋辛苦十几年才有一点可能上中国一流大学。但是其他穷弱国家的穷丑黑矮学渣屌丝却能随随便便轻轻松松地每年领着巨额奖学金上中国一流大学。这巨额奖学金却是中国人辛苦工作交的税。中国警察生三胎被辞退，黑人在中国生三胎却拿到了在中国的居留证。中国不大力培养中国寒门学生，却每年把巨资送给穷弱国家的屌丝差生在中国吃喝嫖赌。</p>
+                                            <div class="operate-grounp">
+                                                <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                    &nbsp;&nbsp;
+                                                    <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                </p>
+                                                <p class="fc99">2021-05-25</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="demo-preview">
+                                    <img src="https://pic2.zhimg.com/a9a816b4a_s.jpg?source=06d4cd63">
+                                    <div class="demo-content">
+                                        <div style="border-bottom:1px solid #eee;padding-bottom: 15px;">
+                                            <h4>SEEKER <van-tag type="primary">用户</van-tag></h4>
+                                            <p>然而几代人的努力实现了阶级阶层的跨越 却又因为时局的变动一夕之间便可再次跌入谷底</p>
+                                            <div class="operate-grounp">
+                                                <p><van-icon name="good-job-o" class="font18-imp"/>
+                                                    &nbsp;&nbsp;
+                                                    <van-icon name="chat-o" @click="showCommd" class="font18-imp"/>
+                                                </p>
+                                                <p class="fc99">2021-05-25</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </van-skeleton>
+                        </van-cell>
+                    </van-cell-group>
+                </van-list>
+            </van-pull-refresh>
+        </van-popup>
+
+        <van-popup v-model:show="collectShow"
+                   round
+                   position="bottom"
+                   :style="{ height: '40%' }">
+            <van-picker
+                    show-toolbar
+                    title="分类列表"
+                    @confirm="confirmCategory"
+                    @cancel="cancelCategory"
+                    :columns="columns" />
+        </van-popup>
+        <van-popup v-model:show="goldShow"
+                   round
+                   position="bottom"
+                   :style="{ height: '30%' }">
+            <div class="pwz" style="">
+                <div class="cbFlex">
+                    <div class="commBtn fc99" @click="cancelGold">取消</div>
+                    <div class="commBtn fc33" @click="conmitGold">确定</div>
+                </div>
+            </div>
+            <swiper
+                    :slides-per-view="3"
+                    :space-between="50"
+                    centered-slides="true"
+                    @swiper="onSwiper"
+                    @slideChange="onSlideChange">
+                <swiper-slide v-for="item in goldList">
+                    <div class="commSlide">
+                        <div class="commIco">
+                            <van-icon name="cash-back-record font55-imp"/>
+                            <p>{{item.goldNumber}}金币</p>
+                        </div>
+                    </div>
+                </swiper-slide>
+            </swiper>
+        </van-popup>
+        <van-popup v-model:show="commentShow" position="bottom" :style="{maxHeight:'30%'}">
+            <van-cell-group>
+                <van-field
+                        v-model="comment"
+                        rows="1"
+                        autosize
+                        label=""
+                        left-icon=""
+                        right-icon="share"
+                        type="textarea"
+                        @click=""
+                        placeholder="输入评论"/>
+            </van-cell-group>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -182,25 +407,97 @@
     } from 'vue';
     import { useRoute, useRouter } from 'vue-router'
     import { Toast } from 'vant';
+    import { Swiper, SwiperSlide } from 'swiper/vue';
+    import 'swiper/swiper.less';
     export default defineComponent({
+        components: {
+            Swiper,
+            SwiperSlide,
+        },
         setup() {
+            const router = useRouter();
             const route = useRoute();
             const titleName = `${route.query.problemName}`;
             const active = ref(1);
+            const value1 = ref('');
+            const comment = ref('');
+            const showCommd = function(){
+                commentShow.value = true;
+            };
             const titleType = `${route.query.detailType}`;
             const detailType = ref(titleType);
             const toPrve = function(){
                 history.back();
             };
             const showShare = ref(false);
+            let isLikeed = ref(false);
+            let isCalled = ref(false);
             let show = ref(false);
-            let baseTouchTime = 0;
+            let commentShow = ref(false);
+            let loading = ref(false);
+            let collectShow = ref(false);
+            const confirmCategory = function(list){
+                Toast("收藏成功");
+                isCalled.value = true;
+                collectShow.value = false;
+            };
+            const cancelCategory = function(){
+                isCalled.value = false;
+                collectShow.value = false;
+            };
+            const wirteQues = function(){
+                router.push({
+                    path:'/editor',
+                    query:{name:''}
+                })
+            };
             const optionsDownSelect = [
+                [
+                    { name: '稍后看', icon: 'http://mym.youmias.com/static/img/books.png?v=12' },
+                    { name: '复制链接', icon: 'link' },
+                    { name: '二维码', icon: 'qrcode' },
+                ],
                 [
                     { name: '微信', icon: 'wechat' },
                     { name: '微博', icon: 'weibo' },
                     { name: 'QQ', icon: 'qq' },
                 ]
+            ];
+            const columns = [
+                {
+                    text: '生活',
+                    children: [
+                        {
+                            text: '做菜',
+                        },
+                        {
+                            text: '跑步',
+                        },
+                        {
+                            text: '备孕',
+                        },
+                        {
+                            text: '买房',
+                        },
+                    ],
+                },
+                {
+                    text: '事业',
+                    children: [
+                        {
+                            text: '组建团队',
+                        },
+                        {
+                            text: '拓展视野',
+                        },
+                        {
+                            text: '精神食粮',
+                        },
+                        {
+                            text: '高效率沟通',
+                        },
+                    ],
+                },
             ];
             const onOpenDownSelect = (option) => {
                 showShare.value = false;
@@ -208,52 +505,255 @@
             const toTypeHanndle = (val) => {
                 //1:喜欢 2:收藏 3:评论 4:投币
                 if(val == 1){
-                    Toast('喜欢');
+                    if(isLikeed.value){
+                        isLikeed.value = false;
+                        Toast('取消喜欢');
+                    }else{
+                        isLikeed.value = true;
+                        Toast('喜欢成功');
+                    }
                 }
                 if(val == 2){
-                    Toast('收藏');
+                    if(isCalled.value){
+                        isCalled.value = false;
+                        Toast('取消收藏');
+                    }else{
+                        collectShow.value = true;
+                    }
                 }
                 if(val == 3){
-                    Toast('评论');
                     show.value = true;
                 }
                 if(val == 4){
-                    Toast('投币');
+                    goldShow.value = true;
                 }
             };
-            const gtouchstart = (val) => {
-                baseTouchTime = new Date().getTime();
-                console.log("touch start");
+            let currGoldObjct = {};
+            const cancelGold = () =>{
+                goldShow.value = false;
             };
+            const conmitGold = () =>{
+                goldShow.value = false;
+                Toast(`${currGoldObjct.goldNumber}金币投币成功`);
+                console.dir(currGoldObjct);
+            };
+            const thingList = ref([]);
+            const state = reactive({
+                list: thingList,
+                loading: false,
+                finished: false,
+                refreshing: false,
+            });
+            const onLoad = () => {
+                state.loading = true;
+                // 异步更新数据
+                setTimeout(() => {
+                    if(state.refreshing) {
+                        state.list = [];
+                        state.refreshing = false;
+                    }
+                    for (let i = 0; i < 1; i++) {
+                        state.list.push({id:1,title:"如何购买cpu？",keywords:["cpu性能","cpu","cpu类别"],desc:"CPU是计算机的主要设备之一，功能主要是解释计算机指令以及处理计算机软件中的数据。选择CPU时不止要考虑CPU，还要考虑到主板的搭配是不是可以发挥它的性能，内存的频率和CPU散热器的影响。"});
+                        state.list.push({id:2,title:"如何购买显卡？",keywords:["显卡","买显卡","显卡品牌"],desc:"显卡是计算机最基本配置、最重要的配件之一，负责主要的图形运算，所以玩大型游戏肯定需要一张强力的显卡，对于从事专业图形设计的人来说显卡也是尤为重要的."});
+                    }
+                    // 加载状态结束
+                    state.loading = false;
+                    // 数据全部加载完成
+                    if (state.list.length >= 6){
+                        state.finished = true;
+                    }
+                }, 1000);
+            };
+            const onRefresh = () => {
+                // 清空列表数据
+                state.finished = false;
+                //重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                state.loading = true;
+                onLoad();
+            };
+            let onSwiper = (swiper) => {
+                console.log(swiper);
+            };
+            let onSlideChange = (swiper) => {
+                currGoldObjct = goldList[swiper.activeIndex];
+            };
+            let goldShow = ref(false);
+            let goldList = [{id:1,goldNumber:1},{id:2,goldNumber:2},{id:3,goldNumber:3},{id:4,goldNumber:4},{id:5,goldNumber:5},
+                                {id:6,goldNumber:10},{id:7,goldNumber:20},{id:8,goldNumber:30},{id:9,goldNumber:40},{id:10,goldNumber:50}];
+            const closeComd = function(){
+                show.value = false;
+            }
             return {
                 showShare,
+                goldList,
+                closeComd,
+                conmitGold,
+                cancelGold,
+                onSwiper,
+                onSlideChange,
                 onOpenDownSelect,
                 optionsDownSelect,
+                confirmCategory,
+                cancelCategory,
+                goldShow,
                 titleName,
+                commentShow,
+                loading,
+                value1,
+                wirteQues,
+                state,
+                showCommd,
+                comment,
+                onRefresh,
+                onLoad,
+                isLikeed,
+                isCalled,
                 toPrve,
                 active,
-                gtouchstart,
                 toTypeHanndle,
+                collectShow,
+                columns,
                 show,
                 detailType
             }
         },
+
 
     })
 </script>
 <style lang="less" scoped>
     :deep .van-icon{
         vertical-align: bottom;
-        font-size: 13px;
         margin-top: 3px;
     }
     :deep .van-tabbar-item__text{
         font-size: 13px;
     }
+    :deep .van-popup__close-icon--top-right{
+        top: 8px;
+        right: 16px;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        transition: 300ms;
+        transform: scale(0.8);
+        color: #999;
+    }
+    .swiper-slide-active,.swiper-slide-duplicate-active{
+        transform: scale(1);
+        color: #000;
+    }
+    .operate-grounp{
+        display: flex;
+        justify-content:space-between;
+    }
+    .topFixed{
+        text-align: center;
+        height: 45px;
+        width: 100%;
+        background: #fff;
+        line-height: 45px;
+        z-index: 10;
+        position: fixed;
+        border-radius: 30px 30px;
+    }
+    .topFixedbot{
+        width: 100%;
+        max-height: 80%;
+        overflow: scroll;
+        z-index: 10;
+        background-color: #fff;
+        position: fixed;
+        left:0px;
+        bottom: 0px;
+    }
+    .font55-imp{
+        font-size:40px;
+    }
+    .pwz{
+        position:fixed;
+        width:100%;
+        z-index: 10;
+    }
+    .cbFlex{
+        display:flex;
+        justify-content:space-between;
+        align-items: center;
+    }
+    .commBtn{
+        width:20%;
+        height:45px;
+        text-align: center;
+        line-height: 45px;
+        font-size:14px;
+    }
+    .commSlide{
+        display:flex;
+        justify-content:center;
+        align-content:center;
+    }
+    .commIco{
+        width:60px;
+        height:60px;
+        border-radius: 25px;
+    }
     .hanndleComm{
         color: #646566;
         font-size: 13px;
         cursor: pointer;
+    }
+    .demo-skeleton ,.demo-preview{
+        display: flex;
+        padding: 0 16px;
+    }
+    .dppb{
+        padding-bottom: 20px;
+        border-bottom:1px solid #e3e3e3;
+    }
+    .demo-skeleton ,.demo-preview img {
+        -webkit-flex-shrink: 0;
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        border-radius: 15px;
+    }
+    .demo-skeleton  ,.demo-content {
+        padding-top: 6px;
+    }
+    .demo-skeleton ,.demo-preview ,.demo-content h3 {
+        margin: 0;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .demo-skeleton ,.demo-preview ,.demo-content p {
+        margin: 13px 0 0;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .activeHannel{
+        color:#1989fa;
     }
     .commBot{
         position: fixed;

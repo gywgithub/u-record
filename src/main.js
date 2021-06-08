@@ -2,13 +2,20 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from './route'
 import './styles/index.css'
+import './styles/indexImp.css'
 import './common/reset.css'
 import {
     Col,
     Row,
+    DropdownMenu,
+    DropdownItem,
     Uploader,
+    SwipeCell,
+    Sticky,
+    Overlay,
     Popover,
     Picker,
+    Skeleton,
     Button,
     ShareSheet,
     Form,
@@ -22,7 +29,6 @@ import {
     Popup,
     Dialog,
     Loading,
-    Overlay,
     List,
     PullRefresh,
     Collapse,
@@ -44,10 +50,16 @@ instace.use(Button)
        .use(Form)
        .use(Col)
        .use(Row)
+       .use(DropdownMenu)
+       .use(DropdownItem)
        .use(ShareSheet)
        .use(Uploader)
+       .use(SwipeCell)
+       .use(Sticky)
+       .use(Overlay)
        .use(Popover)
        .use(Picker)
+       .use(Skeleton)
        .use(Toast)
        .use(Field)
        .use(Tabbar)
@@ -58,7 +70,6 @@ instace.use(Button)
        .use(Popup)
        .use(Dialog)
        .use(Loading)
-       .use(Overlay)
        .use(List)
        .use(PullRefresh)
        .use(Collapse)
