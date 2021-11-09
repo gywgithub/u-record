@@ -1,4 +1,11 @@
-# record-book
+## Project description 
+```
+"name": "shaddock-record",
+"aliasName": "Urecord",
+"version": "0.0.1",
+"description": "柚录",
+"author": "Harvey"
+```
 
 ## Project setup
 ```
@@ -13,11 +20,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
