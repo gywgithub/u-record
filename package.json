@@ -1,0 +1,25 @@
+{
+  "name": "u-record",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "uni-simple-router": "^2.0.7",
+    "uview-ui": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PanWeiZhang/u-record.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PanWeiZhang/u-record/issues"
+  },
+  "homepage": "https://github.com/PanWeiZhang/u-record#readme"
+}
