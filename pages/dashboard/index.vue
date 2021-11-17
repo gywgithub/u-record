@@ -8,6 +8,7 @@
 </template>
 
 <script>
+	import { test } from '../../api/dashboard.js'
 	export default {
 		data() {
 			return {
@@ -15,7 +16,9 @@
 			}
 		},
 		onLoad() {
-
+			test().then((res)=>{
+				console.log("Success");
+			})
 		},
 		methods: {
 			bindClick(){
