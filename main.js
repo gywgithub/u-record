@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App'
 import {router,RouterMount} from './router/index.js' 
+import 'animate.css';
+
 Vue.use(router)
 
 App.mpType = 'app'

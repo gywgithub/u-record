@@ -1,9 +1,6 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/images/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+		<text class="title">{{title}}</text>
 	</view>
 </template>
 
@@ -16,13 +13,29 @@
 			}
 		},
 		onLoad() {
-			test().then((res)=>{
-				console.log("Success");
-			})
 		},
 		methods: {
 			bindClick(){
-				console.log("你好");
+				uni.navigateTo({
+					url:"/pages/login/index"
+				})
+			},
+			navgateLogin(){
+				// uni.navigateTo({
+				//     url: '/pages/login/index?id=1&name=uniapp'
+				// });
+				// uni.navigateTo({
+				//     url:'/pages/login/index',
+				//     success: res => {},fail: () => {},complete: () => {}
+				// })
+				uni.navigateTo({
+				    url: '/pages/login/index',
+				    animationType: 'slide-in-right',
+				    animationDuration: 500,
+					success:(res)=>{
+						console.log("动画完毕");
+					}
+				});
 			}
 		}
 	}
@@ -30,10 +43,7 @@
 
 <style>
 	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		
 	}
 
 	.logo {
@@ -45,13 +55,8 @@
 		margin-bottom: 50rpx;
 	}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
 	.title {
 		font-size: 36rpx;
-		color: #8f8f94;
+		color: #000000;
 	}
 </style>

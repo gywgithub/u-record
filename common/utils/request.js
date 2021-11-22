@@ -1,4 +1,4 @@
-const baseUrl = "https://api.com/";
+const baseUrl = "/api";
 const token = "wkk2323klk";
 const http = (param) => {
 	if (!token) {
@@ -9,7 +9,7 @@ const http = (param) => {
 	// 请求参数
 	let url = param.url,
 	    method = param.method,
-	    header = {'content-type': "application/json"},
+	    header = {'content-type': "application/json; charset=utf-8"},
 	    data = param.data || {},
 	    hideLoading = param.hideLoading || false;
 		

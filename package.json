@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "uni-simple-router": "^2.0.7",
     "uview-ui": "^2.0.2"
   },

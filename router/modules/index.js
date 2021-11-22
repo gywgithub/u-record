@@ -7,5 +7,5 @@ files.keys().forEach(key => {
   const item = files(key).default
   modules.push(...item)
 })
-
+console.dir(modules);
 export default modules

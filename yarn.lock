@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+animate.css@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npm.taobao.org/animate.css/download/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha1-YU7FqBEx1+TcNipYFD90BqvWgHU=
+
 uni-simple-router@^2.0.7:
   version "2.0.7"
   resolved "https://registry.nlark.com/uni-simple-router/download/uni-simple-router-2.0.7.tgz#04e0b5be6cd733a1ecb9d35a3dbe82f27f48204e"

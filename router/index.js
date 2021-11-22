@@ -4,7 +4,17 @@ import {RouterMount,createRouter} from 'uni-simple-router';
 const router = createRouter({
 	mode: 'history',
 	platform: process.env.VUE_APP_PLATFORM,  
-	routes: [...modules]
+	// routes: [...modules]
+	routes : [{
+		path: '/',
+		name: 'dashboard'
+    },{
+		path: '/pages/dashboard/index',
+		name: 'dashboard'
+    },{
+		path: '/pages/login/index',
+		name: 'login'
+    }]
 });
 console.log("当前运行环境：",process.env.VUE_APP_PLATFORM);
 //全局路由前置守卫
