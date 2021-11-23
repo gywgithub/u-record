@@ -5,7 +5,7 @@
 				 <!-- <text class="simul-placeholder simul-placeholder-email"  :class="loginEmailAnimateBoolean ? 'loginEmailAnimate': 'unLoginEmailAnimate'">电子邮件或电话号码</text> -->
 				 <!-- <text class="simul-placeholder simul-placeholder-pwd"  :class="loginPwdAnimateBoolean ? 'loginPwdAnimate': 'unLoginPwdAnimate'">密码</text> -->
 				 <input type="text" class="inp-common inp-email"  placeholder="电子邮件或电话号码" v-model="userName" value="" @focus="hanndleEmailAnimate(1)" @blur="resetHanndleEmailAnimate(1)"/>
-				 <input type="text" class="inp-common inp-pwd" placeholder="密码" v-model="passWord" value="" @focus="hanndlePwdAnimate(1)" @blur="resetHanndlePwdAnimate(1)"/>
+				 <input type="password" class="inp-common inp-pwd" placeholder="密码" v-model="passWord" value="" @focus="hanndlePwdAnimate(1)" @blur="resetHanndlePwdAnimate(1)"/>
 				 <button type="default" class="btn" @click="loginAccount"><view class="login-animation">登 录</view></button>
 				 <text class="return-pwd login-animation2" @click="goRegiter">立即注册</text>
 			 </view>
@@ -16,8 +16,7 @@
 				<!-- <text class="simul-placeholder simul-placeholder-pwd">密码</text> -->
 				<!-- <text class="simul-placeholder simul-placeholder-pwd">确认密码</text> -->
 				<input type="text" class="inp-common inp-email" v-model="unUserName" placeholder="电子邮件或电话号码" value="" @focus="hanndleEmailAnimate(2)"/>
-				<input type="text" class="inp-common inp-pwd"  v-model="unPassword" placeholder="密码" value="" @focus="hanndlePwdAnimate(2)"/>
-				<input type="text" class="inp-common inp-pwd"  v-model="uncheckPassword" placeholder="确认密码" value="" @focus="hanndlePwdAnimate(2)"/>
+				<input type="text" class="inp-common inp-pwd"  v-model="unPassword" placeholder="设置密码" value="" @focus="hanndlePwdAnimate(2)"/>
 				<button type="default" class="btn" @click="regiterAccount"><view class="login-animation" >注 册</view></button>
 				<text class="return-pwd login-animation2" @click="goLogin">立即登录</text>
 			</view>
@@ -42,7 +41,6 @@
 			}
 		},
 		onLoad() {
-			console.log(md5.hex_md5("3kksjdfkk"));
 		},
 		methods: {
 			goRegiter(){
@@ -50,6 +48,22 @@
 			},
 			goLogin(){
 				this.btnType = 2;
+			},
+			// 字符串转base64
+			encode(str){
+			    // 对字符串进行编码
+			    var encode = encodeURI(str);
+			    // 对编码的字符串转化base64
+			    var base64 = btoa(encode);
+			    return base64;
+			},
+			// base64转字符串
+			decode(base64){
+			    // 对base64转编码
+			    var decode = atob(base64);
+			    // 编码转字符串
+			    var str = decodeURI(decode);
+			    return str;
 			},
 			loginAccount(){
 				if(!this.userName || !this.passWord){
@@ -62,7 +76,7 @@
 				}
 				let param = {
 					"userName" : this.userName,
-					"password" : this.passWord
+					"password" : this.encode(this.passWord)
 				}
 				loginReq(param).then((res)=>{
 					if(res.data.token){
@@ -89,17 +103,9 @@
 					});
 					return;
 				}
-				if(!this.unPassword || !this.uncheckPassword){
+				if(!this.unPassword){
 					uni.showToast({
 						title: '密码格式错误',
-						icon:'none',
-						duration: 2000
-					});
-					return;
-				}
-				if(this.unPassword != this.uncheckPassword){
-					uni.showToast({
-						title: '两次密码不一致',
 						icon:'none',
 						duration: 2000
 					});
