@@ -17,7 +17,7 @@ module.exports = {
         /* 使用代理 */  
         proxy: {  
             '/api': {  
-                "target" : "http://10.255.50.83:8080",
+                "target" : "http://192.168.124.11:8080",
                 "changeOrigin" : true,
                 "secure" : false,
                 "pathRewrite" : {
