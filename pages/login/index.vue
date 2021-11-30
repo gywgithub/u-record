@@ -30,8 +30,8 @@
 	export default {
 		data() {
 			return {
-				userName:"",
-				passWord:"",
+				userName:"15600117788",
+				passWord:"123456UUuu",
 				unUserName:"",
 				unPassword:"",
 				uncheckPassword:"",
@@ -44,6 +44,8 @@
 		},
 		methods: {
 			goRegiter(){
+				this.unPassword = "";
+				this.unUserName = "";
 				this.btnType = 1;
 			},
 			goLogin(){
@@ -65,37 +67,44 @@
 			    var str = decodeURI(decode);
 			    return str;
 			},
-			loginAccount(){
-				if(!this.userName || !this.passWord){
-					uni.showToast({
-						title: '请填写账户或密码',
-						icon:'none',
-						duration: 2000
-					});
-					return;
-				}
-				let param = {
-					"userName" : this.userName,
-					"password" : this.encode(this.passWord)
-				}
-				loginReq(param).then((res)=>{
-					if(res.data.token){
-						// uni.getStorageSync("token");
-						uni.setStorageSync('token', res.data.token);
-						this.$Router.push('/pages/dashboard/index')
-					}else{
-						uni.showToast({
-							title: '账号或密码错误，请重试！',
-							icon:'none',
-							duration: 2000
-						});
-					}
-				});
-			},
-			regiterAccount(){
+			checkAccount(user){
 				let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 				let regPhone = /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
-				if(!regEmail.test(this.unUserName) && !regPhone.test(this.unUserName)){
+				if(regEmail.test(user) || regPhone.test(user)){
+					return true;
+				}
+				return false;
+			},
+			randomString(e) {    
+			    e = e || 16;
+			    var t = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678",
+			    a = t.length,
+			    n = "";
+			    for (let i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a));
+			    return n
+			},
+			insertStr(soure, start, newStr){   
+			   return soure.slice(0, start) + newStr + soure.slice(start);
+			},
+			genPassword(){
+				let randomArray = [Math.ceil(Math.random()*9),Math.ceil(Math.random()*9),Math.ceil(Math.random()*9)];
+				let pwdEncodeStr = this.encode(this.passWord);
+				console.log("---",pwdEncodeStr);
+				let randomStr = this.randomString(32);
+				let random10Str = this.randomString(10);
+				let a1 = this.insertStr(pwdEncodeStr,0,randomArray[0]);
+				let a2 = this.insertStr(a1,2,randomArray[1]);
+				console.log(a2);
+				let st = randomStr + a2;
+				if(st.indexOf("==") !== -1){
+					return {data : st.replace("==",random10Str) ,d:"true"}
+				}else{
+					return {data : st ,d:"false"};
+				}
+			},
+			loginAccount(){
+				let checkRes = this.checkAccount(this.userName);
+				if(!checkRes){
 					uni.showToast({
 						title: '账号格式错误',
 						icon:'none',
@@ -103,7 +112,9 @@
 					});
 					return;
 				}
-				if(!this.unPassword){
+				//至少八个字符，至少一个大写字母，一个小写字母，一个数字
+				let regPwd =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+				if(!regPwd.test(this.passWord)){
 					uni.showToast({
 						title: '密码格式错误',
 						icon:'none',
@@ -112,17 +123,64 @@
 					return;
 				}
 				let param = {
-					"userName" : this.unUserName,
-					"password" : md5.hex_md5(this.unPassword),
+					"userName" : this.userName,
+					"password" : this.genPassword().data,
+					"d" : this.genPassword().d
 				}
-				regiterReq(param).then((res)=>{
-					console.dir(res);
+				loginReq(param).then((res)=>{
 					if(res.success){
+						// uni.getStorageSync("token");
+						uni.setStorageSync('token', res.token);
+						this.$Router.push('/pages/dashboard/index')
+					}else{
 						uni.showToast({
-							title: '注册成功',
+							title: res.message,
+							icon:'none',
 							duration: 2000
 						});
+					}
+				});
+			},
+			regiterAccount(){
+				let checkRes = this.checkAccount(this.unUserName);
+				if(!checkRes){
+					uni.showToast({
+						title: '账号格式错误',
+						icon:'none',
+						duration: 2000
+					});
+					return;
+				}
+				//至少八个字符，至少一个大写字母，一个小写字母，一个数字和一个特殊字符
+				let regPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+				if(!regPwd.test(this.unPassword)){
+					uni.showToast({
+						title: '密码格式错误',
+						icon:'none',
+						duration: 2000
+					});
+					return;
+				}
+				//md5.hex_md5(this.unPassword)
+				let param = {
+					"userName" : this.unUserName,
+					"password" : this.unPassword,
+				}
+				regiterReq(param).then((res)=>{
+					if(res.success){
+						this.userName = this.unUserName;
+						this.passWord = "";
 						this.btnType = 2;
+						uni.showToast({
+							title: res.message,
+							duration: 3000
+						});
+					}else{
+						uni.showToast({
+							title: res.message,
+							icon:'none',
+							duration: 3000
+						});
 					}
 				});
 			},
