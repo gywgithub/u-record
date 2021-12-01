@@ -1,5 +1,6 @@
 const baseUrl = "/api";
 const token = "wkk2323klk";
+
 const http = (param) => {
 	if (!token) {
 		// 这里处理没有token认证逻辑
@@ -9,7 +10,7 @@ const http = (param) => {
 	// 请求参数
 	let url = param.url,
 	    method = param.method,
-	    header = {'content-type': "application/json; charset=utf-8"},
+	    header = {'content-type': "application/json; charset=utf-8" , "authorization" : uni.getStorageSync("token") || ""},
 	    data = param.data || {},
 	    hideLoading = param.hideLoading || false;
 		

@@ -130,7 +130,7 @@
 				loginReq(param).then((res)=>{
 					if(res.success){
 						// uni.getStorageSync("token");
-						uni.setStorageSync('token', res.token);
+						uni.setStorageSync('token', res.data.token);
 						this.$Router.push('/pages/dashboard/index')
 					}else{
 						uni.showToast({

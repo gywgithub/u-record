@@ -1,11 +1,12 @@
 <template>
 	<view class="content">
-		<text class="title">{{title}}</text>
+		<text class="title" @click="testRedis">{{title}}</text>
 	</view>
 </template>
 
 <script>
 	import { test } from '../../api/dashboard.js'
+	import { loginReq,regiterReq } from '../../api/login.js'
 	export default {
 		data() {
 			return {
@@ -15,6 +16,25 @@
 		onLoad() {
 		},
 		methods: {
+			testRedis(){
+				let param = {
+					"userName" : "15600117321",
+					"password" : "123456zpwZPW",
+					"d" : "false"
+				}
+				loginReq(param).then((res)=>{
+					if(res.success){
+						// uni.setStorageSync('token', res.data.token);
+						// this.$Router.push('/pages/dashboard/index')
+					}else{
+						uni.showToast({
+							title: res.message,
+							icon:'none',
+							duration: 2000
+						});
+					}
+				});
+			},
 			bindClick(){
 				uni.navigateTo({
 					url:"/pages/login/index"
