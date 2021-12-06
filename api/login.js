@@ -2,7 +2,7 @@ import request from "../common/utils/request.js"
 
 export function loginReq(data) {
 	return request({
-		url: `/login?d=${data.d}`,
+		url: `/login`,
 		method: "post",
 		data:data
 	});

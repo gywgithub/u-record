@@ -87,20 +87,9 @@
 			   return soure.slice(0, start) + newStr + soure.slice(start);
 			},
 			genPassword(){
-				let randomArray = [Math.ceil(Math.random()*9),Math.ceil(Math.random()*9),Math.ceil(Math.random()*9)];
 				let pwdEncodeStr = this.encode(this.passWord);
-				console.log("---",pwdEncodeStr);
 				let randomStr = this.randomString(32);
-				let random10Str = this.randomString(10);
-				let a1 = this.insertStr(pwdEncodeStr,0,randomArray[0]);
-				let a2 = this.insertStr(a1,2,randomArray[1]);
-				console.log(a2);
-				let st = randomStr + a2;
-				if(st.indexOf("==") !== -1){
-					return {data : st.replace("==",random10Str) ,d:"true"}
-				}else{
-					return {data : st ,d:"false"};
-				}
+				return randomStr + pwdEncodeStr;
 			},
 			loginAccount(){
 				let checkRes = this.checkAccount(this.userName);
@@ -124,9 +113,9 @@
 				}
 				let param = {
 					"userName" : this.userName,
-					"password" : this.genPassword().data,
-					"d" : this.genPassword().d
+					"password" : this.genPassword()
 				}
+				console.dir(param);
 				loginReq(param).then((res)=>{
 					if(res.success){
 						// uni.getStorageSync("token");
