@@ -32,10 +32,10 @@
 			return {
 				userName:"15600117788",
 				passWord:"123456UUuu",
-				unUserName:"",
-				unPassword:"",
+				unUserName:"qingyi_w@outlook.com",
+				unPassword:"w12345678",
 				uncheckPassword:"",
-				btnType : 2, //1:注册  2:登录
+				btnType : 1, //1:注册  2:登录
 				loginEmailAnimateBoolean:false,
 				loginPwdAnimateBoolean:false
 			}
@@ -68,7 +68,8 @@
 			    return str;
 			},
 			checkAccount(user){
-				let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				// let regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				let regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
 				let regPhone = /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
 				if(regEmail.test(user) || regPhone.test(user)){
 					return true;
@@ -102,7 +103,10 @@
 					return;
 				}
 				//至少八个字符，至少一个大写字母，一个小写字母，一个数字
-				let regPwd =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+				// let regPwd =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        //至少六个字符，至少一个小写字母，一个数字
+        let regPwd = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/
+        console.log(regPwd.test(this.passWord))
 				if(!regPwd.test(this.passWord)){
 					uni.showToast({
 						title: '密码格式错误',
@@ -112,8 +116,8 @@
 					return;
 				}
 				let param = {
-					"userName" : this.userName,
-					"password" : this.genPassword()
+					"loginName" : this.userName,
+					"userPassword" : this.genPassword()
 				}
 				console.dir(param);
 				loginReq(param).then((res)=>{
@@ -141,7 +145,10 @@
 					return;
 				}
 				//至少八个字符，至少一个大写字母，一个小写字母，一个数字和一个特殊字符
-				let regPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+				// let regPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        //至少六个字符，一个小写字母，一个数字
+        let regPwd = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/
+        console.log(regPwd.test(this.passWord))
 				if(!regPwd.test(this.unPassword)){
 					uni.showToast({
 						title: '密码格式错误',
@@ -152,8 +159,8 @@
 				}
 				//md5.hex_md5(this.unPassword)
 				let param = {
-					"userName" : this.unUserName,
-					"password" : this.unPassword,
+					"loginName" : this.unUserName,
+					"userPassword" : this.unPassword,
 				}
 				regiterReq(param).then((res)=>{
 					if(res.success){

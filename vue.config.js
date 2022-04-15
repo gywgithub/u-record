@@ -17,7 +17,7 @@ module.exports = {
         /* 使用代理 */  
         proxy: {  
             '/api': {  
-                "target" : "http://10.255.50.83:8082", //测试环境
+                "target" : "http://10.255.53.172:8080", //测试环境
                 // "target" : "http://123.57.216.192:8080", //生产环境
                 "changeOrigin" : true,
                 "secure" : false,

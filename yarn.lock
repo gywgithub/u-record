@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-animate.css@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npm.taobao.org/animate.css/download/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
-  integrity sha1-YU7FqBEx1+TcNipYFD90BqvWgHU=
+"animate.css@^4.1.1":
+  "integrity" "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="
+  "resolved" "https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz"
+  "version" "4.1.1"
 
-uni-simple-router@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.nlark.com/uni-simple-router/download/uni-simple-router-2.0.7.tgz#04e0b5be6cd733a1ecb9d35a3dbe82f27f48204e"
-  integrity sha1-BOC1vmzXM6HsudNaPb6C8n9IIE4=
+"uni-simple-router@^2.0.7":
+  "integrity" "sha512-8FKv5dw7Eoonm0gkO8udprrxzin0fNUI0+AvIphFkFRH5ZmP5ZWJ2pvnWzb2NiiqQSECTSU5VSB7HhvOSwD5eA=="
+  "resolved" "https://registry.npmjs.org/uni-simple-router/-/uni-simple-router-2.0.7.tgz"
+  "version" "2.0.7"
 
-uview-ui@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.npmmirror.com/uview-ui/download/uview-ui-2.0.3.tgz#0c92a34b00b03aa79eb023ebc4314203dafd8bf5"
-  integrity sha512-mvCHHV98Bhb1/UbA7JwAkzx9Ng+89QIhqZjFf8POg10uvk+NJHX7H412qTaGe0j3yRvG6080r3HnfbczyRtQiQ==
+"uview-ui@^2.0.2":
+  "integrity" "sha512-sUTV5Q6FxRJIYWeX5EdU5x5o8Vsd5Nl0fOyUpkj5eAEcCZYXiloROjkqzLTWoxyVtepAn0OTmTipE93ialcqkw=="
+  "resolved" "https://registry.npmjs.org/uview-ui/-/uview-ui-2.0.2.tgz"
+  "version" "2.0.2"
